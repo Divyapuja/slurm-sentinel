@@ -26,6 +26,23 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+#terraform
+infra/terraform/terraform.tfstate.backup
+infra/terraform/terraform.tfstate
+infra/terraform/.terraform.lock.hcl
+infra/terraform/.terraform/*
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
