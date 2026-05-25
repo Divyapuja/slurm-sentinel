@@ -1,0 +1,18 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: <REPLACE-WITH-YOUR-OWN-DATA>
+    server: https://127.0.0.1:63734
+  name: kind-slurm-sentinel
+contexts:
+- context:
+    cluster: kind-slurm-sentinel
+    user: kind-slurm-sentinel
+  name: kind-slurm-sentinel
+current-context: kind-slurm-sentinel
+kind: Config
+users:
+- name: kind-slurm-sentinel
+  user:
+    client-certificate-data: <REPLACE-WITH-YOUR-OWN-DATA>
+    client-key-data: <REPLACE-WITH-YOUR-OWN-DATA>
