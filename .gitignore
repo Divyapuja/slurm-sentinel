@@ -219,6 +219,9 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+# pre commit
+.pre-commit/
+
 # Marimo
 marimo/_static/
 marimo/_lsp/

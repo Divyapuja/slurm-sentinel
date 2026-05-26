@@ -1,0 +1,35 @@
+repos:
+  # --- GENERAL / SECURITY CHECKS ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--max-kb=5000']  # Strict guard: Blocks huge HPC training datasets/logs from polluting Git
+
+  # --- GO TELEMETRY LINTPACK (GOLANGCI-LINT) ---
+  - repo: https://github.com/golangci/golangci-lint-pre-commit
+    rev: v1.59.1
+    hooks:
+      - id: golangci-lint
+        name: "Golangci-Lint (Go Exporter Optimization)"
+        args: [--enable=prealloc,bodyclose,gocritic,govet] # Catches slice allocation overhead and leaking HTTP response bodies
+
+  # --- ENTERPRISE HPC GUARDRAILS (LOCAL HOOKS) ---
+  - repo: local
+    hooks:
+      - id: hpc-python-sleep-check
+        name: "HPC Guard: Detect Inefficient Polling Loops"
+        # High-performance agents should avoid tight, unparameterized time.sleep() patterns
+        entry: grep -rn "time.sleep(0"
+        language: system
+        types: [python]
+        files: ^sentinel/
+
+      - id: go-race-condition-risk
+        name: "HPC Guard: Detect Naked Channels / Unbuffered Leak Risks"
+        # Ensures channels use a design pattern that avoids goroutine leaks under heavy telemetry load
+        entry: grep -rn "make(chan "
+        language: system
+        types: [go]
+        files: ^cmd/
