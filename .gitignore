@@ -28,6 +28,7 @@ MANIFEST
 
 #terraform
 infra/terraform/terraform.tfstate.backup
+infra/terraform/slurm-sentinel-config
 infra/terraform/terraform.tfstate
 infra/terraform/.terraform.lock.hcl
 infra/terraform/.terraform/*
